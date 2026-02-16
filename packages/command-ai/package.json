@@ -1,0 +1,23 @@
+{
+  "name": "@eaf/command-ai",
+  "version": "0.1.0",
+  "description": "COMMAND AI - Mission control dashboards, outcome engine, alerts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@eaf/core": "*",
+    "@eaf/aegis": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.10.0"
+  }
+}

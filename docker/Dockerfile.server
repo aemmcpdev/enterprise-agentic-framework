@@ -1,0 +1,36 @@
+FROM node:20-alpine AS base
+
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+COPY packages/core/package.json ./packages/core/
+COPY packages/cortex/package.json ./packages/cortex/
+COPY packages/nexus/package.json ./packages/nexus/
+COPY packages/aegis/package.json ./packages/aegis/
+COPY packages/command-ai/package.json ./packages/command-ai/
+COPY packages/sdk/package.json ./packages/sdk/
+COPY apps/server/package.json ./apps/server/
+
+RUN npm install --workspaces --include-workspace-root
+
+# Copy source
+COPY tsconfig.json turbo.json ./
+COPY packages/ ./packages/
+COPY apps/server/ ./apps/server/
+
+# Build
+RUN npx turbo run build --filter=@eaf/server
+
+# Production stage
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/packages/*/dist ./packages/
+COPY --from=base /app/apps/server/dist ./apps/server/dist
+COPY --from=base /app/apps/server/package.json ./apps/server/
+
+EXPOSE 3000
+
+CMD ["node", "apps/server/dist/index.js"]

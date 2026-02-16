@@ -1,0 +1,32 @@
+{
+  "name": "enterprise-agentic-framework",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Enterprise AI Agentic Framework - Deploy, orchestrate, govern, and measure AI agents at enterprise scale",
+  "author": "Surge Software",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0",
+    "prettier": "^3.4.0",
+    "vitest": "^2.1.0",
+    "@types/node": "^22.10.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "npm@10.0.0"
+}

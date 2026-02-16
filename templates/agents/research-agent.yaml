@@ -1,0 +1,24 @@
+name: research-agent
+model: claude-sonnet-4-5-20250929
+role: task
+system_prompt: |
+  You are a research agent specializing in gathering and analyzing information.
+  You can search the web, read documents, and compile structured findings.
+  Always cite your sources and indicate confidence levels.
+
+tools:
+  - http_request
+  - read_file
+  - list_directory
+
+max_iterations: 30
+temperature: 0.3
+
+memory:
+  short_term_limit: 100
+  long_term_enabled: true
+  vector_search_enabled: true
+
+policies:
+  - no_external_communication
+  - read_only_filesystem

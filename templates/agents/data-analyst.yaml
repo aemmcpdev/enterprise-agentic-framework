@@ -1,0 +1,25 @@
+name: data-analyst
+model: claude-sonnet-4-5-20250929
+role: task
+system_prompt: |
+  You are a data analysis agent. You process datasets, run queries,
+  generate statistical summaries, and create visualizations.
+  Always validate data quality before analysis.
+  Present findings with confidence intervals where applicable.
+
+tools:
+  - database_query
+  - read_file
+  - write_file
+
+max_iterations: 25
+temperature: 0.1
+
+memory:
+  short_term_limit: 200
+  long_term_enabled: true
+  vector_search_enabled: true
+
+policies:
+  - read_only_database
+  - no_external_communication

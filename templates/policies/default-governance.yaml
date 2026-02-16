@@ -1,0 +1,52 @@
+policies:
+  - name: budget-guard
+    description: Prevent agents from exceeding their allocated budget
+    scope:
+      agentRole: '*'
+    conditions:
+      - field: cost
+        operator: gt
+        value: 100
+    action: deny
+    priority: 100
+
+  - name: require-approval-external
+    description: Require human approval for external communications
+    scope:
+      toolName: send_email,send_slack
+    conditions: []
+    action: require_approval
+    priority: 90
+
+  - name: block-destructive-queries
+    description: Block DELETE, DROP, TRUNCATE SQL operations
+    scope:
+      toolName: database_query
+    conditions:
+      - field: query
+        operator: matches
+        value: '(?i)(delete|drop|truncate|alter)'
+    action: deny
+    priority: 100
+
+  - name: filesystem-boundaries
+    description: Prevent writing outside designated directories
+    scope:
+      toolName: write_file
+    conditions:
+      - field: path
+        operator: matches
+        value: '\.\.'
+    action: deny
+    priority: 100
+
+  - name: rate-limit-api
+    description: Limit external API calls per agent per minute
+    scope:
+      toolName: http_request
+    conditions:
+      - field: calls_per_minute
+        operator: gt
+        value: 30
+    action: deny
+    priority: 80
