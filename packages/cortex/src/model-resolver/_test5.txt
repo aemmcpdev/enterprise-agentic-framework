@@ -1,6 +1,0 @@
-﻿import type { Message } from '@eaf/core';
-
-export interface Foo {
-  name: string;
-  stopReason: 'end_turn' | 'max_tokens';
-}

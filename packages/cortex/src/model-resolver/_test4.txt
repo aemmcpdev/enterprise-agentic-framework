@@ -1,2 +1,0 @@
-﻿line1 with single quote: it's here
-line2
